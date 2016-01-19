@@ -1,12 +1,14 @@
 @import "compass/css3/border-radius";
 
 $grey: #545454;
-$title: #545454;
-$text: #545454;
+$base: #8A6D3B;
+$title: #8A6D3B;
+$text: #8A6D3B;
 $blue: #0d3c5f;
+$base_bg: #fafafa;
 
 body{
-  background: #fafafa;
+  background: $base_bg;
   font-family: 'Kurale', serif;
 }
 
@@ -18,7 +20,7 @@ header{
 }
 
 .logo{
-  color: $blue;
+  color: $base;
   font-size: 22px;
   line-height: 78px;
 }
@@ -27,7 +29,7 @@ header{
   line-height: 78px;
   font-size: 16px;
   a{
-    color: $blue;
+    color: $base;
   }
 }
 
@@ -40,8 +42,8 @@ header{
     padding: 5px 8px;
     border: 1px solid #edeeee;
     font-size: 14px;
-    background: #fafafa;
-    color: #818488;
+    background: $base_bg;
+    color: $base;
     &:focus{
       outline: none;
     }
