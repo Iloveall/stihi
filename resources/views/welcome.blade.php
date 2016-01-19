@@ -1,45 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
     <head>
-        <title>Laravel</title>
+        <title>Стишок дружок</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kurale&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+        <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet" type="text/css">
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+        <script type="text/javascript" src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bower_components/angular-route/angular-route.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('dist/js/app.min.js') }}"></script>
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
     </head>
     <body>
+
+      <header>
         <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="logo">
+                Cтишочек - дружочек
+              </div>
             </div>
+            <div class="col-md-4">
+              <div class="search text-center">
+                <input type="text" name="search" placeholder="Поиск.." ng-model="search">
+              </div>
+            </div>
+            <div class="col-md-4 text-right">
+              <div class="auth">
+                <a href="#">Вход</a>
+              </div>
+            </div>
+          </div>
         </div>
+      </header>
+
+        <div ng-view></div>
+
     </body>
 </html>

@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="list">
+    <div class="row">
+      <div class="col-md-12 text-center item" ng-repeat="blog in blogCtrl.getBlogs() | filter:search">
+        <div class="head">
+
+          <div class="row">
+            <div class="col-md-6 text-left">
+              <div class="avatar">
+                <div class="img">
+                  <img src="https://scontent-frt3-1.cdninstagram.com/hphotos-xtf1/t51.2885-19/s150x150/12277424_451529385030370_976630966_a.jpg" alt="" />
+                </div>
+                <div class="name">
+                  Настька
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6 text-right">
+              2 мин
+            </div>
+          </div>
+
+        </div>
+        <p class="title">
+          {{ blog.title }}
+        </p>
+        <p class="text">
+          {{ blog.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
