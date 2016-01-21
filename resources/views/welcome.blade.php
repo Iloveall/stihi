@@ -22,7 +22,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="logo">
-                Cтишочек - дружочек
+                Cтишочек - дружочек :)
               </div>
             </div>
             <div class="col-md-4">
@@ -32,15 +32,21 @@
             </div>
             <div class="col-md-4 text-right">
               <div class="auth">
-                <a href="" ng-click="headerCtrl.openAuth()">Вход</a> /
-                <a href="" ng-click="headerCtrl.openRegister()">Создать</a>
+
+                <span class="spinner" ng-show="!appCtrl.isAuthLoaded">Загружаем..</span>
+
+                <span ng-if="!appCtrl.isAuth && appCtrl.isAuthLoaded">
+                  <a href="" ng-click="headerCtrl.openAuth()">Вход</a> /
+                  <a href="" ng-click="headerCtrl.openRegister()">Создать</a>
+                </span>
+
               </div>
             </div>
           </div>
         </div>
       </header>
 
-        <div ng-view></div>
+      <div ng-view></div>
 
     </body>
 </html>
