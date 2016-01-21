@@ -1,0 +1,62 @@
+<div class="auth-popup">
+  <div class="form">
+
+    <div class="link">
+      <div class="text-center">
+        <p>Создать кабинет</a>
+      </div>
+    </div>
+
+    <form name="form" novalidate>
+
+      <p class="text-center">
+        <input type="text" placeholder="Имя" name="uName" ng-model="user.name" ng-minlength="2" required>
+
+        <div ng-show="form.$submitted || form.uName.$touched" class="error">
+          <span ng-show="form.uName.$error.required">Укажите ваше имя</span>
+          <span ng-show="form.uName.$error.minlength">Минимум 2 буквы</span>
+        </div>
+      </p>
+
+      <p class="text-center">
+        <input type="email" name="uEmail" placeholder="E-mail" ng-model="user.email" required>
+        <div ng-show="form.$submitted || form.uEmail.$touched" class="error">
+          <span ng-show="form.uEmail.$error.required">Укажите ваш email</span>
+          <span ng-show="form.uEmail.$error.email">Проверьте правильность вашего email</span>
+        </div>
+      </p>
+
+      <p class="text-center">
+        <input
+          type="password"
+          name="uPassword"
+          placeholder="Пароль"
+          ng-model="user.password"
+          ng-minlength="6"
+          required>
+        <div ng-show="form.$submitted || form.uPassword.$touched" class="error">
+          <span ng-show="form.uPassword.$error.required">Придумайте пароль</span>
+          <span ng-show="form.uPassword.$error.minlength">Минимум 6 символов</span>
+        </div>
+      </p>
+
+      <p class="text-center error" ng-if="authCtrl.authErrors">
+        <span ng-repeat="error in authCtrl.authErrors">{{ error }}</span>
+      </p>
+
+      <p class="text-center success" ng-if="authCtrl.authMessages">
+        <span ng-repeat="message in authCtrl.authMessages">{{ message }}</span>
+      </p>
+
+      <p class="text-center" ng-if="!authCtrl.authMessages">
+        <button
+          type="submit"
+          name="button"
+          class="btn btn-success"
+          ng-click="authCtrl.register(form)">Создать</button>
+      </p>
+
+    </form>
+
+  </div>
+</div>

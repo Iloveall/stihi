@@ -1,6 +1,8 @@
 @import "compass/css3/border-radius";
 
 $grey: #545454;
+$green: #4CAF50;
+$red: #F44336;
 $base: #8A6D3B;
 $title: #8A6D3B;
 $text: #8A6D3B;
@@ -92,4 +94,47 @@ header{
     line-height: 38px;
   }
 
+}
+
+.auth-popup{
+  max-width: 300px;
+  margin: 0 auto;
+  .link{
+    p{
+      font-size: 16px;
+      // margin: 10px 0;
+    }
+  }
+}
+
+.form{
+  padding: 10px 10px 0 10px;
+  input{
+    @include border-radius(4px, 4px);
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #edeeee;
+    font-size: 14px;
+    background: $base_bg;
+    color: $base;
+    &:focus{
+      outline: none;
+    }
+  }
+}
+
+.post-spinner{
+  margin: 0 auto 15px auto;
+  width: 240px;
+  margin-bottom: 15px;
+  padding: 8px;
+  background: #fff;
+}
+
+.error{
+  color: $red;
+}
+
+.success{
+  color: $green;
 }

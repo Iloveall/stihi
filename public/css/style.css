@@ -83,3 +83,45 @@ header {
 .avatar .name {
   line-height: 38px;
 }
+
+.auth-popup {
+  max-width: 300px;
+  margin: 0 auto;
+}
+.auth-popup .link p {
+  font-size: 16px;
+}
+
+.form {
+  padding: 10px 10px 0 10px;
+}
+.form input {
+  -moz-border-radius: 4px / 4px;
+  -webkit-border-radius: 4px 4px;
+  border-radius: 4px / 4px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #edeeee;
+  font-size: 14px;
+  background: #fafafa;
+  color: #8A6D3B;
+}
+.form input:focus {
+  outline: none;
+}
+
+.post-spinner {
+  margin: 0 auto 15px auto;
+  width: 240px;
+  margin-bottom: 15px;
+  padding: 8px;
+  background: #fff;
+}
+
+.error {
+  color: #F44336;
+}
+
+.success {
+  color: #4CAF50;
+}

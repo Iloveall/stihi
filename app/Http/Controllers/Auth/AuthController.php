@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -43,30 +45,99 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator($data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|min:6'
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  Request $request
      * @return User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+
+      $input = (array)$request->all();
+
+      $validator = $this->validator($input);
+
+      if ($validator->fails())
+      {
+
+        return response()->json([
+          'success' => false,
+          'errors' => $validator->errors()->all()
+        ], 404);
+
+      }
+
+      $user = User::create([
+          'name' => $request->input('name'),
+          'email' => $request->input('email'),
+          'password' => bcrypt($request->input('password')),
+      ]);
+
+      return response()->json([
+        'success' => true,
+        'data' => [
+          'user' => $user
+        ],
+        'messages' => [
+          'Кабинет успешно создан. Теперь попробуйте войти и написать свой первый стишок :)'
+        ]
+      ], 200);
+
     }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @return boolean
+     */
+    protected function isAuth()
+    {
+      if (Auth::check())
+      {
+        return response()->json([
+          'success' => true,
+        ], 200);
+      }
+
+      return response()->json([
+        'success' => false,
+      ], 401);
+
+    }
+
+    /**
+     * Auth user.
+     *
+     * @param json $data
+     * @return boolean
+     */
+    protected function auth(Request $request)
+    {
+      if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
+      {
+        return response()->json([
+          'success' => true,
+          'user' => Auth::guard('api')->user()
+        ], 200);
+      }
+
+      return response()->json([
+        'success' => false,
+      ], 401);
+
+    }
+
 }

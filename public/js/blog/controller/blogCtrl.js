@@ -1,12 +1,13 @@
 angular
   .module('app')
-  .controller('blogCtrl', ['$scope', function ($scope) {
+  .controller('blogCtrl', ['$scope', '$uibModal', function ($scope, $uibModal) {
 
     'use strict';
 
     var c = {};
 
-    console.log('blogCtrl');
+    c.isSpinner = true;
+    c.isAnimation = true;
 
     c.blogs = [
       {
@@ -34,6 +35,29 @@ angular
 
     c.getBlogs = function () {
       return c.blogs;
+    };
+
+    c.openPost = function (id) {
+
+      var post = c.getPostById(id);
+
+      var modalInstance = $uibModal.open({
+        animation: c.isAnimation,
+        templateUrl: 'js/post/template/post-popup.html',
+        size: 'md',
+        scope: $scope,
+        controller: 'postCtrl',
+        controllerAs: 'postCtrl',
+        resolve: {
+          post: function () {
+            return post;
+          }
+        }
+      });
+    };
+
+    c.getPostById = function (id) {
+      return _.find(c.blogs, function(o) { return o.id === id; });
     };
 
     return c;

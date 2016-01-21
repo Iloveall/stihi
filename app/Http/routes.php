@@ -26,6 +26,19 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+
+Route::group(['prefix' => 'api'], function () {
+  Route::resource('post', 'PostController');
+  Route::post('user/create', 'Auth\AuthController@create');
+  Route::post('user/auth', 'Auth\AuthController@auth');
+});
+
+Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
+    Route::get('user/is-auth', 'Auth\AuthController@isAuth');
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });

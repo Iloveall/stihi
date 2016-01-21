@@ -14,7 +14,6 @@
                   Настька
                 </div>
               </div>
-
             </div>
             <div class="col-md-6 text-right">
               2 мин
@@ -23,12 +22,17 @@
 
         </div>
         <p class="title">
-          {{ blog.title }}
+          <a href="" ng-click="blogCtrl.openPost( blog.id )">{{ blog.title }}</a>
         </p>
         <p class="text">
           {{ blog.text }}
         </p>
       </div>
     </div>
+
+    <div class="post-spinner text-center" ng-show="blogCtrl.isSpinner">
+      Грузим больше стишочков...
+    </div>
+
   </div>
 </div>

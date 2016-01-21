@@ -10,12 +10,14 @@
 
         <script type="text/javascript" src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/angular-route/angular-route.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bower_components/angular-bootstrap/ui-bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('dist/js/app.min.js') }}"></script>
 
     </head>
-    <body>
+    <body ng-controller="appCtrl as appCtrl">
 
-      <header>
+      <header ng-controller="headerCtrl as headerCtrl">
         <div class="container">
           <div class="row">
             <div class="col-md-4">
@@ -30,7 +32,8 @@
             </div>
             <div class="col-md-4 text-right">
               <div class="auth">
-                <a href="#">Вход</a>
+                <a href="" ng-click="headerCtrl.openAuth()">Вход</a> /
+                <a href="" ng-click="headerCtrl.openRegister()">Создать</a>
               </div>
             </div>
           </div>

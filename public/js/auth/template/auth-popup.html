@@ -1,0 +1,52 @@
+<div class="auth-popup">
+  <div class="form">
+
+    <div class="link">
+      <div class="text-center">
+        <p>Войти в кабинет</a>
+      </div>
+    </div>
+
+    <form name="form" novalidate>
+
+      <p class="text-center">
+        <input type="email" name="uEmail" placeholder="E-mail" ng-model="user.email" required>
+        <div ng-show="form.$submitted || form.uEmail.$touched" class="error">
+          <span ng-show="form.uEmail.$error.required">Укажите ваш email</span>
+          <span ng-show="form.uEmail.$error.email">Проверьте правильность вашего email</span>
+        </div>
+      </p>
+
+      <p class="text-center">
+        <input
+          type="password"
+          name="uPassword"
+          placeholder="Пароль"
+          ng-model="user.password"
+          ng-minlength="6"
+          required>
+        <div ng-show="form.$submitted || form.uPassword.$touched" class="error">
+          <span ng-show="form.uPassword.$error.required">Укажите пароль</span>
+        </div>
+      </p>
+
+      <p class="text-center error" ng-if="authCtrl.authErrors">
+        <span ng-repeat="error in authCtrl.authErrors">{{ error }}</span>
+      </p>
+
+      <p class="text-center success" ng-if="authCtrl.authMessages">
+        <span ng-repeat="message in authCtrl.authMessages">{{ message }}</span>
+      </p>
+
+      <p class="text-center" ng-if="!authCtrl.authMessages">
+        <button
+          type="submit"
+          name="button"
+          class="btn btn-success"
+          ng-click="authCtrl.auth(form)">Войти</button>
+      </p>
+
+    </form>
+
+  </div>
+</div>
