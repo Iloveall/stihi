@@ -27,6 +27,10 @@ header{
   margin-bottom: 20px;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 .logo{
   color: $base;
   font-size: 22px;
@@ -62,6 +66,7 @@ header{
   margin: 0 auto;
   max-width: 400px;
   .item{
+    position: relative;
     margin: 20px 0;
     padding: 20px;
     background: #fff;
@@ -80,6 +85,12 @@ header{
       margin: 5px;
       font-size: 16px;
       color: $text;
+    }
+    .edit-panel{
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 16px;
     }
   }
 }
@@ -116,6 +127,18 @@ header{
 .form{
   padding: 10px 10px 0 10px;
   input{
+    @include border-radius(4px, 4px);
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #edeeee;
+    font-size: 14px;
+    background: $base_bg;
+    color: $base;
+    &:focus{
+      outline: none;
+    }
+  }
+  textarea{
     @include border-radius(4px, 4px);
     width: 100%;
     padding: 5px 8px;

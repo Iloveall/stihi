@@ -1,12 +1,12 @@
 angular
   .module('app')
-  .factory('Post', ['$http', function ($http) {
+  .factory('Post', ['$rootScope', '$http', 'User', function ($rootScope, $http, User) {
 
     'use strict';
 
-    console.log('postService');
-
     var f = {};
+
+    var posts = null;
 
     var URL = 'api/post';
 
@@ -14,8 +14,19 @@ angular
       return $http.get(URL);
     };
 
-    f.create = function () {
-      return $http.post(URL);
+    f.getById = function (id) {
+      return $http.get(URL + '/' + id);
+    };
+
+    f.create = function (data) {
+      return $http.get(
+        URL + '/create?' + User.getTokenParam(),
+        {params: data}
+      );
+    };
+
+    f.add = function (post) {
+      $rootScope.$broadcast('postUpdate', post);
     };
 
     return f;

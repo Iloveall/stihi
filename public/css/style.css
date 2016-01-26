@@ -16,6 +16,10 @@ header {
   margin-bottom: 20px;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .logo {
   color: #8A6D3B;
   font-size: 22px;
@@ -54,6 +58,7 @@ header {
   max-width: 400px;
 }
 .list .item {
+  position: relative;
   margin: 20px 0;
   padding: 20px;
   background: #fff;
@@ -73,6 +78,12 @@ header {
   margin: 5px;
   font-size: 16px;
   color: #8A6D3B;
+}
+.list .item .edit-panel {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 16px;
 }
 
 .avatar .img {
@@ -113,6 +124,20 @@ header {
   color: #8A6D3B;
 }
 .form input:focus {
+  outline: none;
+}
+.form textarea {
+  -moz-border-radius: 4px / 4px;
+  -webkit-border-radius: 4px 4px;
+  border-radius: 4px / 4px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #edeeee;
+  font-size: 14px;
+  background: #fafafa;
+  color: #8A6D3B;
+}
+.form textarea:focus {
   outline: none;
 }
 

@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-12">
 
-      <p class="title text-center">Написать новый стишок</p>
+      <p class="title text-center" ng-if="!postCtrl.isAdded">Написать новый стишок</p>
 
-      <form class="form" name="form" novalidate>
+      <form class="form" name="form" novalidate ng-if="!postCtrl.isAdded">
 
         <p class="text-center">
           <input type="text" name="uTitle" placeholder="Введите название" ng-model="post.title" required>
@@ -21,7 +21,7 @@
         </p>
 
         <p class="text-center">
-          <input type="text" name="uText" placeholder="Введите текст" ng-model="post.text" required>
+          <textarea name="uText" placeholder="Введите текст" ng-model="post.text" required></textarea>
           <div ng-show="form.$submitted || form.uText.$touched" class="error">
             <span ng-show="form.uText.$error.required">Ввердите стихотворение</span>
           </div>
@@ -36,6 +36,12 @@
         </p>
 
       </form>
+
+      <p class="text-center success" ng-if="postCtrl.messages">
+        <span ng-repeat="message in postCtrl.messages">{{ message }}</span>
+        <i class="fa fa-check success"></i>
+      </p>
+
 
     </div>
   </div>

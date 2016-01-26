@@ -12,13 +12,19 @@
       </div>
 
       <div class="col-md-12 text-center item" ng-repeat="post in blogCtrl.posts | filter:search">
+
+        <div class="edit-panel" ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded && post.user.id === appCtrl.user.id">
+          <i class="fa fa-pencil" ng-click="blogCtrl.edit(post.id)"></i>
+          <i class="fa fa-trash-o" ng-click="blogCtrl.destroy(post.id)"></i>
+        </div>
+
         <div class="head">
 
           <div class="row">
             <div class="col-md-6 text-left">
               <div class="avatar">
                 <div class="img">
-                  <img src="https://scontent-frt3-1.cdninstagram.com/hphotos-xtf1/t51.2885-19/s150x150/12277424_451529385030370_976630966_a.jpg" alt="" />
+                  <img ng-src="{{ post.user.avatar | isAvatar }}" />
                 </div>
                 <div class="name">
                   {{ post.user.name }}
@@ -26,7 +32,7 @@
               </div>
             </div>
             <div class="col-md-6 text-right">
-              2 мин
+              {{ post.created_at | timeFilter }}
             </div>
           </div>
 

@@ -6,6 +6,9 @@ angular
 
     var c = {};
 
+    c.isSpinner = false;
+    c.isAdded = false;
+    c.messages = null;
     $scope.post = {};
 
     c.add = function (form) {
@@ -21,15 +24,20 @@ angular
         return;
       }
 
-      // Post.add().success(function(response) {
-      //
-      //   c.messages = response.messages;
-      //
-      // }).error(function(response) {
-      //
-      //   c.errors = response.errors;
-      //
-      // });
+      c.isSpinner = true;
+      Post.create($scope.post).success(function(response) {
+        c.isSpinner = false;
+        c.isAdded = true;
+
+        Post.add(response.data.post);
+        c.messages = response.messages;
+
+      }).error(function(response) {
+        c.isSpinner = false;
+
+        c.errors = response.errors;
+
+      });
 
     };
 

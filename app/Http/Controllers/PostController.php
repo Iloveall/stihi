@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 use App\Post;
 use App\User;
@@ -19,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::with('user')->get();
+        $post = Post::with('user')->orderBy('id', 'desc')->get();
 
         return response()->json([
           'success' => true,
@@ -37,7 +38,21 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        Post::create($request->all());
+      $user = Auth::guard('api')->user();
+      $post = Post::create($request->all());
+      $post->user()->associate($user);
+      $post->save();
+
+      return response()->json([
+        'success' => true,
+        'data' => [
+          'post' => $post->with('user')->orderBy('id', 'desc')->first()
+        ],
+        'messages' => [
+          'Новый стишок успешно добавлен :)'
+        ]
+      ], 200);
+
     }
 
     /**
@@ -59,7 +74,14 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+      $post = Post::find($id)->load('user');
+
+      return response()->json([
+        'success' => true,
+        'data' => [
+          'post' => $post
+        ]
+      ], 200);
     }
 
     /**

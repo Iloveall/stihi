@@ -14,6 +14,7 @@
         <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet" type="text/css">
 
         <script type="text/javascript" src="{{ asset('bower_components/lodash/dist/lodash.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bower_components/moment/min/moment-with-locales.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/angular-route/angular-route.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/ng-dialog/js/ngDialog.min.js') }}"></script>
