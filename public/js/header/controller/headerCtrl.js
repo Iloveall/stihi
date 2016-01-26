@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('headerCtrl', ['$uibModal', function ($uibModal) {
+  .controller('headerCtrl', ['ngDialog', 'User', function (ngDialog, User) {
 
     'use strict';
 
@@ -12,36 +12,34 @@ angular
 
     c.openAuth = function () {
 
-      var modalInstance = $uibModal.open({
-        animation: c.isAnimation,
-        templateUrl: 'js/auth/template/auth-popup.html',
+      ngDialog.open({
+        template: 'js/auth/template/auth-popup.html',
+        className: 'ngdialog-theme-default',
+        showClose: true,
+        closeByDocument: true,
+        closeByEscape: true,
         controller: 'authCtrl',
-        controllerAs: 'authCtrl',
-        size: 'sm',
-        resolve: {
-          items: function () {
-            return '1';
-          }
-        }
+        controllerAs: 'authCtrl'
       });
 
     };
 
     c.openRegister = function () {
 
-      var modalInstance = $uibModal.open({
-        animation: c.isAnimation,
-        templateUrl: 'js/auth/template/register-popup.html',
+      ngDialog.open({
+        template: 'js/auth/template/register-popup.html',
+        className: 'ngdialog-theme-default',
+        showClose: true,
+        closeByDocument: true,
+        closeByEscape: true,
         controller: 'authCtrl',
-        controllerAs: 'authCtrl',
-        size: 'sm',
-        resolve: {
-          items: function () {
-            return '1';
-          }
-        }
+        controllerAs: 'authCtrl'
       });
 
+    };
+
+    c.exit = function () {
+      User.exit();
     };
 
     return c;

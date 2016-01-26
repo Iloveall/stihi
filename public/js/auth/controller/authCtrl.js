@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('authCtrl', ['$scope', 'User', function ($scope, User) {
+  .controller('authCtrl', ['$scope', 'ngDialog', 'User', function ($scope, ngDialog, User) {
 
     'use strict';
 
@@ -9,6 +9,7 @@ angular
     $scope.user = {};
     c.authErrors = null;
     c.authMessages = null;
+    c.isAuthSuccess = false;
 
     // console.log('authCtrl');
 
@@ -53,6 +54,9 @@ angular
         c.user = response.user;
         c.authMessages = response.messages;
         c.authErrors = null;
+        c.isAuthSuccess = true;
+
+        User.setUser(response.user);
 
       }).error(function(response) {
 
@@ -60,6 +64,10 @@ angular
         c.authMessages = null;
 
       });
+    };
+
+    c.authModalClose = function () {
+      ngDialog.close();
     };
 
     return c;

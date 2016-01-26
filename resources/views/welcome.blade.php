@@ -6,12 +6,17 @@
         <link href='https://fonts.googleapis.com/css?family=Kurale&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
         <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/ng-dialog/css/ngDialog.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/ng-dialog/css/ngDialog-theme-default.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/ng-dialog/css/ngDialog-theme-plain.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/ng-dialog/css/ngDialog-custom-width.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet" type="text/css">
 
+        <script type="text/javascript" src="{{ asset('bower_components/lodash/dist/lodash.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/angular-route/angular-route.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bower_components/angular-bootstrap/ui-bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bower_components/ng-dialog/js/ngDialog.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('dist/js/app.min.js') }}"></script>
 
     </head>
@@ -38,6 +43,11 @@
                 <span ng-if="!appCtrl.isAuth && appCtrl.isAuthLoaded">
                   <a href="" ng-click="headerCtrl.openAuth()">Вход</a> /
                   <a href="" ng-click="headerCtrl.openRegister()">Создать</a>
+                </span>
+
+                <span ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded">
+                  <a href="" ng-bind="appCtrl.user.name"></a> /
+                  <a href="" ng-click="headerCtrl.exit()">Выход</a>
                 </span>
 
               </div>

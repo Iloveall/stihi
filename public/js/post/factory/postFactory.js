@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .factory('Post', ['$scope', '$http', function ($scope, $http) {
+  .factory('Post', ['$http', function ($http) {
 
     'use strict';
 
@@ -12,6 +12,10 @@ angular
 
     f.get = function () {
       return $http.get(URL);
+    };
+
+    f.create = function () {
+      return $http.post(URL);
     };
 
     return f;

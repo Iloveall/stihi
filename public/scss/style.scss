@@ -14,6 +14,12 @@ body{
   font-family: 'Kurale', serif;
 }
 
+.ngdialog.ngdialog-theme-default .ngdialog-content{
+  background: #fff;
+  font-family: 'Kurale', serif;
+  font-size: 16px;
+}
+
 header{
   background: #fff;
   border-bottom: 1px solid #edeeee;
@@ -129,6 +135,12 @@ header{
   margin-bottom: 15px;
   padding: 8px;
   background: #fff;
+}
+
+.title{
+  margin: 20px 0;
+  font-size: 22px;
+  color: $title;
 }
 
 .error{

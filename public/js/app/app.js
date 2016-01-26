@@ -1,7 +1,7 @@
 angular
   .module('app', [
     'ngRoute',
-    'ui.bootstrap'
+    'ngDialog'
   ])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {

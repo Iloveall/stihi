@@ -18,12 +18,8 @@ class Post extends Model
       'user_id', 'title', 'description', 'text'
   ];
 
-  /**
-   * The attributes excluded from the model's JSON form.
-   *
-   * @var array
-   */
-  protected $hidden = [
-
-  ];
+  public function user()
+  {
+      return $this->belongsTo('App\User', 'user_id');
+  }
 }

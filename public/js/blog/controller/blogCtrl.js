@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('blogCtrl', ['$scope', '$uibModal', function ($scope, $uibModal) {
+  .controller('blogCtrl', ['$scope', 'ngDialog', 'Post', function ($scope, ngDialog, Post) {
 
     'use strict';
 
@@ -9,50 +9,70 @@ angular
     c.isSpinner = true;
     c.isAnimation = true;
 
-    c.blogs = [
-      {
-        'id': '1',
-        'user_id': '1',
-        'title': 'Котик мурмотик',
-        'description': 'Стишочек про котика мурмотика',
-        'text': 'Котик мурмотик - мягкий животик, Острые зубки и влажненький носик. Лежит на подушке и сладко зевает, Его там за ушко - Насяся щипает'
-      },
-      {
-        'id': '2',
-        'user_id': '1',
-        'title': 'Зайка мой хороший',
-        'description': 'Стишочек про зайчика',
-        'text': 'Зайчик мой хороший - умненький красивый, Знает он все коды - коды бутерброды!! Сайтики красивые - всеееем он нарисует, Но а Наську Маську - потом он - утром зацелует'
-      },
-      {
-        'id': '3',
-        'user_id': '1',
-        'title': 'Сказочку дарю тебе',
-        'description': 'Стишочек про оленя',
-        'text': 'Сказку даришь каждый день, И надев костюм Олень - Ты танцуешь до упада И смешишшь Меня Как Надо :) Целовашки целоваешь - крепко крепко обнимаешь, И обняв меня так сладко - Ти найкраще кошенятко =*'
-      }
-    ];
+    c.posts = null;
+    // c.blogs = [
+    //   {
+    //     'id': '1',
+    //     'user_id': '1',
+    //     'title': 'Котик мурмотик',
+    //     'description': 'Стишочек про котика мурмотика',
+    //     'text': 'Котик мурмотик - мягкий животик, Острые зубки и влажненький носик. Лежит на подушке и сладко зевает, Его там за ушко - Насяся щипает'
+    //   },
+    //   {
+    //     'id': '2',
+    //     'user_id': '1',
+    //     'title': 'Зайка мой хороший',
+    //     'description': 'Стишочек про зайчика',
+    //     'text': 'Зайчик мой хороший - умненький красивый, Знает он все коды - коды бутерброды!! Сайтики красивые - всеееем он нарисует, Но а Наську Маську - потом он - утром зацелует'
+    //   },
+    //   {
+    //     'id': '3',
+    //     'user_id': '1',
+    //     'title': 'Сказочку дарю тебе',
+    //     'description': 'Стишочек про оленя',
+    //     'text': 'Сказку даришь каждый день, И надев костюм Олень - Ты танцуешь до упада И смешишшь Меня Как Надо :) Целовашки целоваешь - крепко крепко обнимаешь, И обняв меня так сладко - Ти найкраще кошенятко =*'
+    //   }
+    // ];
 
     c.getBlogs = function () {
-      return c.blogs;
+
+      Post.get().success(function(response) {
+        c.posts = response.data.posts;
+
+        // $scope
+        console.log(c.posts);
+      });
+
     };
 
     c.openPost = function (id) {
 
       var post = c.getPostById(id);
 
-      var modalInstance = $uibModal.open({
-        animation: c.isAnimation,
-        templateUrl: 'js/post/template/post-popup.html',
-        size: 'md',
-        scope: $scope,
+      ngDialog.open({
+        template: 'js/post/template/post-popup.html',
+        className: 'ngdialog-theme-default',
+        showClose: true,
+        closeByDocument: true,
+        closeByEscape: true,
         controller: 'postCtrl',
         controllerAs: 'postCtrl',
-        resolve: {
-          post: function () {
-            return post;
-          }
+        data: {
+          post: post
         }
+      });
+    };
+
+    c.openAdd = function () {
+
+      ngDialog.open({
+        template: 'js/post/template/add-popup.html',
+        className: 'ngdialog-theme-default',
+        showClose: true,
+        closeByDocument: true,
+        closeByEscape: true,
+        controller: 'postCtrl',
+        controllerAs: 'postCtrl'
       });
     };
 

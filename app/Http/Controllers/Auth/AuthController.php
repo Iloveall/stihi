@@ -84,6 +84,7 @@ class AuthController extends Controller
           'name' => $request->input('name'),
           'email' => $request->input('email'),
           'password' => bcrypt($request->input('password')),
+          'api_token' => str_random(60)
       ]);
 
       return response()->json([
@@ -105,10 +106,14 @@ class AuthController extends Controller
      */
     protected function isAuth()
     {
-      if (Auth::check())
+
+      $user = Auth::guard('api')->user();
+
+      if (!empty($user))
       {
         return response()->json([
           'success' => true,
+          'data' => ['user' => $user]
         ], 200);
       }
 
@@ -130,12 +135,18 @@ class AuthController extends Controller
       {
         return response()->json([
           'success' => true,
-          'user' => Auth::guard('api')->user()
+          'user' => Auth::user(),
+          'messages' => [
+            'Авторизация прошла успешно :)'
+          ]
         ], 200);
       }
 
       return response()->json([
         'success' => false,
+        'errors' => [
+          'Друг мой, вы ввели не верный логин или пароль, попробуйте еще разок ;)'
+        ]
       ], 401);
 
     }

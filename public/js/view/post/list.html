@@ -1,7 +1,17 @@
-<div class="container">
+<div class="container" ng-init="blogCtrl.getBlogs()">
   <div class="list">
     <div class="row">
-      <div class="col-md-12 text-center item" ng-repeat="blog in blogCtrl.getBlogs() | filter:search">
+
+      <div class="col-md-12 text-center" ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded">
+
+        <button
+          type="button"
+          class="btn btn-success"
+          ng-click="blogCtrl.openAdd()">Создать</button>
+
+      </div>
+
+      <div class="col-md-12 text-center item" ng-repeat="post in blogCtrl.posts | filter:search">
         <div class="head">
 
           <div class="row">
@@ -11,7 +21,7 @@
                   <img src="https://scontent-frt3-1.cdninstagram.com/hphotos-xtf1/t51.2885-19/s150x150/12277424_451529385030370_976630966_a.jpg" alt="" />
                 </div>
                 <div class="name">
-                  Настька
+                  {{ post.user.name }}
                 </div>
               </div>
             </div>
@@ -22,10 +32,10 @@
 
         </div>
         <p class="title">
-          <a href="" ng-click="blogCtrl.openPost( blog.id )">{{ blog.title }}</a>
+          <a href="" ng-click="blogCtrl.openPost( post.id )">{{ post.title }}</a>
         </p>
         <p class="text">
-          {{ blog.text }}
+          {{ post.text }}
         </p>
       </div>
     </div>

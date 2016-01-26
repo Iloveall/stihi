@@ -3,13 +3,13 @@
 
     <div class="link">
       <div class="text-center">
-        <p>Войти в кабинет</a>
+        <p>Вход в кабинет</a>
       </div>
     </div>
 
     <form name="form" novalidate>
 
-      <p class="text-center">
+      <p class="text-center" ng-if="!authCtrl.isAuthSuccess">
         <input type="email" name="uEmail" placeholder="E-mail" ng-model="user.email" required>
         <div ng-show="form.$submitted || form.uEmail.$touched" class="error">
           <span ng-show="form.uEmail.$error.required">Укажите ваш email</span>
@@ -17,7 +17,7 @@
         </div>
       </p>
 
-      <p class="text-center">
+      <p class="text-center" ng-if="!authCtrl.isAuthSuccess">
         <input
           type="password"
           name="uPassword"
@@ -36,6 +36,7 @@
 
       <p class="text-center success" ng-if="authCtrl.authMessages">
         <span ng-repeat="message in authCtrl.authMessages">{{ message }}</span>
+        <i class="fa fa-check success"></i>
       </p>
 
       <p class="text-center" ng-if="!authCtrl.authMessages">
@@ -44,6 +45,14 @@
           name="button"
           class="btn btn-success"
           ng-click="authCtrl.auth(form)">Войти</button>
+      </p>
+
+      <p class="text-center" ng-if="authCtrl.isAuthSuccess">
+        <button
+          type="submit"
+          name="button"
+          class="btn btn-success"
+          ng-click="!authCtrl.authModalClose()">Закрыть</button>
       </p>
 
     </form>

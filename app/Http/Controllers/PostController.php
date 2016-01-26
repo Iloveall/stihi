@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Post;
+use App\User;
 
 class PostController extends Controller
 {
@@ -18,7 +19,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        $post = Post::with('user')->get();
+
+        return response()->json([
+          'success' => true,
+          'data' => [
+            'posts' => $post
+          ]
+        ], 200);
+
     }
 
     /**
@@ -26,9 +35,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        Post::create($request->all());
     }
 
     /**
