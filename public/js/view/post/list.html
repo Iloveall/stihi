@@ -2,48 +2,81 @@
   <div class="list">
     <div class="row">
 
-      <div class="col-md-12 text-center" ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded">
-
-        <button
-          type="button"
-          class="btn btn-success"
-          ng-click="blogCtrl.openAdd()">Создать</button>
-
-      </div>
-
-      <div class="col-md-12 text-center item" ng-repeat="post in blogCtrl.posts | filter:search">
-
-        <div class="edit-panel" ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded && post.user.id === appCtrl.user.id">
-          <i class="fa fa-pencil" ng-click="blogCtrl.edit(post.id)"></i>
-          <i class="fa fa-trash-o" ng-click="blogCtrl.destroy(post.id)"></i>
+        <div class="col-md-12 text-center" ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded">
+            <button
+              type="button"
+              class="btn btn-success"
+              ng-click="blogCtrl.openAdd()">Создать</button>
         </div>
 
-        <div class="head">
+        <div class="col-md-12 text-center item" ng-repeat="post in blogCtrl.posts | filter:search" post-edit>
 
-          <div class="row">
-            <div class="col-md-6 text-left">
-              <div class="avatar">
-                <div class="img">
-                  <img ng-src="{{ post.user.avatar | isAvatar }}" />
-                </div>
-                <div class="name">
-                  {{ post.user.name }}
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 text-right">
-              {{ post.created_at | timeFilter }}
-            </div>
+          <div class="edit-panel" ng-if="appCtrl.isAuth && appCtrl.isAuthLoaded && post.user.id === appCtrl.user.id">
+            <i class="fa fa-pencil" ng-click="showEdit()"></i>
+            <i class="fa fa-trash-o" ng-click="destroy(post.id)"></i>
           </div>
 
+          <div class="head">
+
+            <div class="row">
+              <div class="col-md-6 text-left">
+                <div class="avatar">
+                  <div class="img">
+                    <img ng-src="{{ post.user.avatar | isAvatar }}" />
+                  </div>
+                  <div class="name">
+                    {{ post.user.name }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 text-right">
+                {{ post.created_at | timeFilter }}
+              </div>
+            </div>
+
+          </div>
+
+          <form class="form" name="form" novalidate>
+
+            <input type="hidden" name="uId" ng-model="post.id" required>
+
+            <p class="title" ng-if="!isEdit">
+              <a href="" ng-click="blogCtrl.openPost( post.id )">{{ post.title }}</a>
+            </p>
+
+            <p class="text-center" ng-if="isEdit">
+              <input type="text" name="uTitle" placeholder="Введите название" ng-model="post.title" required>
+              <div ng-show="form.$submitted || form.uTitle.$touched" class="error">
+                <span ng-show="form.uTitle.$error.required">Укажите название вашего творения</span>
+              </div>
+            </p>
+
+            <p class="text" ng-if="!isEdit">
+              {{ post.text }}
+            </p>
+
+            <p class="text-center" ng-if="isEdit">
+              <textarea name="uText" placeholder="Введите текст" ng-model="post.text" required></textarea>
+              <div ng-show="form.$submitted || form.uText.$touched" class="error">
+                <span ng-show="form.uText.$error.required">Ввердите стихотворение</span>
+              </div>
+            </p>
+
+            <p class="text-center" ng-if="isEdit">
+              <button
+                type="submit"
+                name="button"
+                class="btn btn-success"
+                ng-click="update()">Обновить</button>
+            </p>
+
+
+          </form>
+
+
         </div>
-        <p class="title">
-          <a href="" ng-click="blogCtrl.openPost( post.id )">{{ post.title }}</a>
-        </p>
-        <p class="text">
-          {{ post.text }}
-        </p>
-      </div>
+
+
     </div>
 
     <div class="post-spinner text-center" ng-show="blogCtrl.isSpinner">

@@ -51,7 +51,6 @@ angular
     };
 
     c.openAdd = function () {
-
       ngDialog.open({
         template: 'js/post/template/add-popup.html',
         className: 'ngdialog-theme-default',
@@ -70,6 +69,15 @@ angular
     $scope.$on('postUpdate', function (data, post) {
       console.log('post update', post);
       c.posts.unshift(post);
+    });
+
+    $scope.$on('postDelete', function (data, id) {
+      console.log('post delete', id);
+
+      _.remove(c.posts, {
+          id: id
+      });
+
     });
 
     return c;

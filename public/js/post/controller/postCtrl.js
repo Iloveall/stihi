@@ -10,6 +10,7 @@ angular
     c.isAdded = false;
     c.messages = null;
     $scope.post = {};
+    c.isEdit = false;
 
     c.add = function (form) {
 
@@ -40,6 +41,18 @@ angular
       });
 
     };
+
+    c.showEdit = function (id) {
+      c.isEdit = true;
+    }
+
+    c.edit = function (id) {
+
+    };
+
+    c.destroy = function (id) {
+
+    }
 
     return c;
 

@@ -25,9 +25,21 @@ angular
       );
     };
 
+    f.update = function (data) {
+      return $http.put(URL + '/' + data.id + '?' + User.getTokenParam(), data);
+    }
+
+    f.destroy = function (id) {
+      return $http.delete(URL + '/' + id + '?' + User.getTokenParam(), {});
+    }
+
     f.add = function (post) {
       $rootScope.$broadcast('postUpdate', post);
     };
+
+    f.delete = function (id) {
+        $rootScope.$broadcast('postDelete', id);    
+    }
 
     return f;
 

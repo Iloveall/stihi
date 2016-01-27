@@ -104,7 +104,17 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $post->fill($request->only(['title', 'description', 'text']));
+        $post->push();
+
+        return response()->json([
+          'success' => true,
+          'data' => [
+            'post' => $post
+          ]
+        ], 200);
+
     }
 
     /**
@@ -115,6 +125,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+
+        return response()->json([
+          'success' => true,
+        ], 200);
     }
 }
