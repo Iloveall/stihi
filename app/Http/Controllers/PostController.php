@@ -13,6 +13,14 @@ use App\User;
 
 class PostController extends Controller
 {
+
+    protected $user;
+
+    public function __construct()
+    {
+      $this->user = Auth::guard('api')->user();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,9 +46,8 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-      $user = Auth::guard('api')->user();
       $post = Post::create($request->all());
-      $post->user()->associate($user);
+      $post->user()->associate($this->user);
       $post->save();
 
       return response()->json([
@@ -74,7 +81,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-      $post = Post::find($id)->load('user');
+
+      $post = Post::find($id);
 
       return response()->json([
         'success' => true,
@@ -104,7 +112,21 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
+
+        $post = Post::whereHas('user', function($q)
+        {
+          $q->where('id', 2);
+        })->where('id', $id)->get()->first();
+
+        if (empty($post)) {
+          return response()->json([
+            'success' => false,
+            'errors' => [
+              'Not user'
+            ]
+          ], 200);
+        };
+
         $post->fill($request->only(['title', 'description', 'text']));
         $post->push();
 
@@ -125,7 +147,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Post::destroy($id);
+        $post = Post::whereHas('user', function($q)
+        {
+          $q->where('id', 1);
+        })->where('id', $id)->get()->first();
+
+        $post->delete();
 
         return response()->json([
           'success' => true,
