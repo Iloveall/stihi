@@ -6,7 +6,7 @@ angular
 
     var c = {};
 
-    c.isSpinner = true;
+    c.isSpinner = false;
     c.isAnimation = true;
 
     c.posts = null;

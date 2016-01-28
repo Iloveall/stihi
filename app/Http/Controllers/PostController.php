@@ -115,7 +115,7 @@ class PostController extends Controller
 
         $post = Post::whereHas('user', function($q)
         {
-          $q->where('id', 2);
+          $q->where('id', $this->user->id);
         })->where('id', $id)->get()->first();
 
         if (empty($post)) {
@@ -149,8 +149,17 @@ class PostController extends Controller
     {
         $post = Post::whereHas('user', function($q)
         {
-          $q->where('id', 1);
+          $q->where('id', $this->user->id);
         })->where('id', $id)->get()->first();
+
+        if (empty($post)) {
+          return response()->json([
+            'success' => false,
+            'errors' => [
+              'Not user'
+            ]
+          ], 200);
+        };
 
         $post->delete();
 
