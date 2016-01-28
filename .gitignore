@@ -6,3 +6,5 @@ Homestead.json
 .env
 bower_components/
 .sass-cache/
+
+.htaccess
