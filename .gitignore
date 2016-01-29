@@ -1,12 +1,10 @@
 /vendor
 /node_modules
+node_modules/
 /storage
 Homestead.yaml
 Homestead.json
 .env
-bower_components/
 .sass-cache/
-
 .htaccess
-
 /config/database.php
